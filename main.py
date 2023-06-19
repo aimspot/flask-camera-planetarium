@@ -5,8 +5,8 @@ from flask import Flask, Response
 app = Flask(__name__)
 
 camera = cv2.VideoCapture(0)  # Используйте 0 для основной камеры или 1, 2 и т. д. для других камер
-camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+camera.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
+camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
 
 def generate_frames():
     while True:
