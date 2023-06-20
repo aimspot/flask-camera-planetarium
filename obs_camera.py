@@ -24,6 +24,8 @@ def main():
     # Установка разрешения видео
     capture.set(cv2.CAP_PROP_FRAME_WIDTH, width_conf)
     capture.set(cv2.CAP_PROP_FRAME_HEIGHT, height_conf)
+    capture.set(cv2.CAP_PROP_FPS, fps_conf)
+
 
     # Создание объекта VirtualCamera
     with pyvirtualcam.Camera(width=width_conf, height=height_conf, fps=fps_conf) as virtual_cam:
