@@ -1,12 +1,32 @@
 import cv2
 from flask import Flask, Response
+import yaml
+from yaml import load
+from yaml import FullLoader
+import time
+
 #http://localhost:5000/video_feed
+
+def load_config(config_file):
+    with open(config_file) as f:
+        return load(f, Loader=FullLoader)
+    
+config = load_config(f'external/config.yaml')
+
+camara_port = config['camera_port']
+width = config['width']
+height = config['height']
+fps = config['fps']
+
 
 app = Flask(__name__)
 
 camera = cv2.VideoCapture(0)  # Используйте 0 для основной камеры или 1, 2 и т. д. для других камер
-camera.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
-camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
+camera.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+camera.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+camera.set(cv2.CAP_PROP_FPS, fps)
+
+start_time = time.time()
 
 def generate_frames():
     while True:
@@ -16,9 +36,20 @@ def generate_frames():
             break
 
         # Здесь вы можете производить дополнительную обработку кадра (если требуется)
+        # Примените сглаживание (например, фильтр Гаусса)
+        smoothed_frame = cv2.GaussianBlur(frame, (5, 5), 0)
+
+        # Посчитайте текущий FPS
+        elapsed_time = time.time() - start_time
+        current_fps = 1 / elapsed_time
+        start_time = time.time()
+
+        # Выведите текущий FPS в консоль
+        print(f"Current FPS: {current_fps:.2f}")
+        
 
         # Преобразовываем кадр в формат JPEG для передачи по сети
-        ret, buffer = cv2.imencode('.jpg', frame)
+        ret, buffer = cv2.imencode('.jpg', smoothed_frame)
         frame = buffer.tobytes()
 
         # Возвращаем кадр как видеопоток
