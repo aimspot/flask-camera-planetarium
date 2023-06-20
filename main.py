@@ -26,7 +26,7 @@ camera.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 camera.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 camera.set(cv2.CAP_PROP_FPS, fps)
 
-start_time = time.time()
+# start_time = time.time()
 
 def generate_frames():
     while True:
@@ -39,13 +39,13 @@ def generate_frames():
         # Примените сглаживание (например, фильтр Гаусса)
         smoothed_frame = cv2.GaussianBlur(frame, (5, 5), 0)
 
-        # Посчитайте текущий FPS
-        elapsed_time = time.time() - start_time
-        current_fps = 1 / elapsed_time
-        start_time = time.time()
+        # # Посчитайте текущий FPS
+        # elapsed_time = time.time() - start_time
+        # current_fps = 1 / elapsed_time
+        # start_time = time.time()
 
         # Выведите текущий FPS в консоль
-        print(f"Current FPS: {current_fps:.2f}")
+        # print(f"Current FPS: {current_fps:.2f}")
         
 
         # Преобразовываем кадр в формат JPEG для передачи по сети
