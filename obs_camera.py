@@ -25,6 +25,7 @@ def main():
     capture.set(cv2.CAP_PROP_FRAME_WIDTH, width_conf)
     capture.set(cv2.CAP_PROP_FRAME_HEIGHT, height_conf)
     capture.set(cv2.CAP_PROP_FPS, fps_conf)
+    print("Obs camera is starting")
 
 
     # Создание объекта VirtualCamera
@@ -51,7 +52,7 @@ def main():
             virtual_cam.sleep_until_next_frame()
 
             # Отображение кадра (для отладки)
-            cv2.imshow("Webcam", smoothed_frame)
+            #cv2.imshow("Webcam", smoothed_frame)
 
             # Обработка нажатия клавиши "q" для выхода из цикла
             if cv2.waitKey(1) & 0xFF == ord("q"):
